@@ -1,23 +1,25 @@
 package ca.bc.gov.hlth.pcdbi.batch.model.oldstatustracker;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import ca.bc.gov.hlth.pcdbi.batch.model.common.Form;
+import ca.bc.gov.hlth.pcdbi.batch.model.common.IssueAndRisk;
+
 public class OldStatusTracker {
-	// Form/submission fields
-	private String lateEntry;
+
+	private Form form;
 
 	// Header fields
 	private String typeOfInitiative;
 	private String healthAuthority;
 	private String communityName;
 	private String pcnName;
-	private List<String> pcnNames;
-	private PCNNameWithType pcnNameWithType;
-	private List<PCNNameWithType> pcnNamesWithType;
+	private List<String> pcnNames = new ArrayList<String>();
 
 	// PCN
 	private String allClinicsImpacted;
-	private List<String> clinicNames;
+	private List<String> clinicNames = new ArrayList<String>();
 	private String hsiarServicePlanGapAnalysis;
 	private String pcnForecastedImplementationDate;
 	private String otherPcIsIncluded;
@@ -25,6 +27,7 @@ public class OldStatusTracker {
 	// UPCC
 	private String upccName;
 	private String upccTypeOfCare;
+
 	private String upccCovidTestSite;
 	private String upccChangesToService;
 	private String upccChangeToServiceDate;
@@ -76,24 +79,23 @@ public class OldStatusTracker {
 
 	// Issues and/or Risks
 	private String anyIssuesRisk;
-	private List<IssueAndRisk> issuesAndRisks;
+	private List<IssueAndRisk> issuesAndRisks = new ArrayList<IssueAndRisk>();
 
-	// Deprecated
-	// XXX These fields are deprecated/renamed and won't be mapped to the export
-	private String forecastedImplementationYear;
-	private String fnpccFiscalYearAndQuarterLaunch;
-	
 	// New
 	private String issueClosedDate;
 	private String issueRaisedDate;
 	private String dateMitigationPlanCommences;
+	private String mitigationStrategy;
+	private String issuesNotes;
+	private String riskCategory;
+	private String relevantSites;
 
-	public String getLateEntry() {
-		return lateEntry;
+	public Form getForm() {
+		return form;
 	}
 
-	public void setLateEntry(String lateEntry) {
-		this.lateEntry = lateEntry;
+	public void setForm(Form form) {
+		this.form = form;
 	}
 
 	public String getTypeOfInitiative() {
@@ -134,22 +136,6 @@ public class OldStatusTracker {
 
 	public void setPcnNames(List<String> pcnNames) {
 		this.pcnNames = pcnNames;
-	}
-
-	public PCNNameWithType getPcnNameWithType() {
-		return pcnNameWithType;
-	}
-
-	public void setPcnNameWithType(PCNNameWithType pcnNameWithType) {
-		this.pcnNameWithType = pcnNameWithType;
-	}
-
-	public List<PCNNameWithType> getPcnNamesWithType() {
-		return pcnNamesWithType;
-	}
-
-	public void setPcnNamesWithType(List<PCNNameWithType> pcnNamesWithType) {
-		this.pcnNamesWithType = pcnNamesWithType;
 	}
 
 	public String getAllClinicsImpacted() {
@@ -504,24 +490,6 @@ public class OldStatusTracker {
 		this.issuesAndRisks = issuesAndRisks;
 	}
 
-	public String getForecastedImplementationYear() {
-		return forecastedImplementationYear;
-	}
-
-	public void setForecastedImplementationYear(String forecastedImplementationYear) {
-		this.forecastedImplementationYear = forecastedImplementationYear;
-	}
-
-	public String getFnpccFiscalYearAndQuarterLaunch() {
-		return fnpccFiscalYearAndQuarterLaunch;
-	}
-
-	public void setFnpccFiscalYearAndQuarterLaunch(String fnpccFiscalYearAndQuarterLaunch) {
-		this.fnpccFiscalYearAndQuarterLaunch = fnpccFiscalYearAndQuarterLaunch;
-	}
-
-	
-	
 	public String getIssueClosedDate() {
 		return issueClosedDate;
 	}
@@ -546,12 +514,43 @@ public class OldStatusTracker {
 		this.dateMitigationPlanCommences = dateMitigationPlanCommences;
 	}
 
+	public String getMitigationStrategy() {
+		return mitigationStrategy;
+	}
+
+	public void setMitigationStrategy(String mitigationStrategy) {
+		this.mitigationStrategy = mitigationStrategy;
+	}
+
+	public String getIssuesNotes() {
+		return issuesNotes;
+	}
+
+	public void setIssuesNotes(String issuesNotes) {
+		this.issuesNotes = issuesNotes;
+	}
+
+	public String getRiskCategory() {
+		return riskCategory;
+	}
+
+	public void setRiskCategory(String riskCategory) {
+		this.riskCategory = riskCategory;
+	}
+
+	public String getRelevantSites() {
+		return relevantSites;
+	}
+
+	public void setRelevantSites(String relevantSites) {
+		this.relevantSites = relevantSites;
+	}
+
 	@Override
 	public String toString() {
-		return "OldStatusTracker [lateEntry=" + lateEntry + ", typeOfInitiative=" + typeOfInitiative
-				+ ", healthAuthority=" + healthAuthority + ", communityName=" + communityName + ", pcnName=" + pcnName
-				+ ", pcnNames=" + pcnNames + ", pcnNameWithType=" + pcnNameWithType + ", pcnNamesWithType="
-				+ pcnNamesWithType + ", allClinicsImpacted=" + allClinicsImpacted + ", clinicNames=" + clinicNames
+		return "OldStatusTracker [form=" + form + ", typeOfInitiative=" + typeOfInitiative + ", healthAuthority="
+				+ healthAuthority + ", communityName=" + communityName + ", pcnName=" + pcnName + ", pcnNames="
+				+ pcnNames + ", allClinicsImpacted=" + allClinicsImpacted + ", clinicNames=" + clinicNames
 				+ ", hsiarServicePlanGapAnalysis=" + hsiarServicePlanGapAnalysis + ", pcnForecastedImplementationDate="
 				+ pcnForecastedImplementationDate + ", otherPcIsIncluded=" + otherPcIsIncluded + ", upccName="
 				+ upccName + ", upccTypeOfCare=" + upccTypeOfCare + ", upccCovidTestSite=" + upccCovidTestSite
@@ -573,9 +572,10 @@ public class OldStatusTracker {
 				+ ", actualOpeningDate=" + actualOpeningDate + ", scaleUpResources=" + scaleUpResources
 				+ ", openDateForScaleUpResources=" + openDateForScaleUpResources + ", reasonForDelay=" + reasonForDelay
 				+ ", reasonForExceptionInDate=" + reasonForExceptionInDate + ", anyIssuesRisk=" + anyIssuesRisk
-				+ ", issuesAndRisks=" + issuesAndRisks + ", forecastedImplementationYear="
-				+ forecastedImplementationYear + ", fnpccFiscalYearAndQuarterLaunch=" + fnpccFiscalYearAndQuarterLaunch
-				+ "]";
+				+ ", issuesAndRisks=" + issuesAndRisks + ", issueClosedDate=" + issueClosedDate + ", issueRaisedDate="
+				+ issueRaisedDate + ", dateMitigationPlanCommences=" + dateMitigationPlanCommences
+				+ ", mitigationStrategy=" + mitigationStrategy + ", issuesNotes=" + issuesNotes + ", riskCategory="
+				+ riskCategory + ", relevantSites=" + relevantSites + "]";
 	}
 
 }

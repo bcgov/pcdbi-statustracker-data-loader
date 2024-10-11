@@ -45,9 +45,11 @@ public class ChefsService {
     @Value("${chefs.forms.statusTracker.apiKey}")
     private String statusTrackerApiKey;
 
-    private String submissionpath = "forms/%s/submissions?deleted=false&draft=false";
+    private String exportPath = "forms/%s/export?format=json";
     
-    private String oldStatusTrackerSubmissionPath = submissionpath + "&fields=TODO,communities";
+    private String submissionpath = "forms/%s/submissions?format=json";
+    
+    private String oldStatusTrackerSubmissionPath = submissionpath;
     
     private String formSubmissionPath = "forms/%s/versions/%s/submissions";
     
@@ -65,7 +67,8 @@ public class ChefsService {
     }
     
     public ResponseEntity<List<OldStatusTracker>> getOldStatusTrackers() {
-        String path = String.format(oldStatusTrackerSubmissionPath, oldStatusTrackerFormId);
+        String path = String.format(exportPath, oldStatusTrackerFormId);
+        logger.info("path: {}", path);
         return chefsWebClient.get()
                 .uri(path)
                 .headers(header -> header.setBasicAuth(oldStatusTrackerFormId, oldStatusTrackerApikey))

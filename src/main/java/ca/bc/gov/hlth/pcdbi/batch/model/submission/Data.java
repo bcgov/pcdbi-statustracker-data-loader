@@ -1,7 +1,11 @@
 package ca.bc.gov.hlth.pcdbi.batch.model.submission;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public abstract class Data {
+	@JsonIgnore
     private Boolean lateEntry = Boolean.FALSE;
+	//@JsonIgnore
     private String submissionId;
 
     public Boolean getLateEntry() {

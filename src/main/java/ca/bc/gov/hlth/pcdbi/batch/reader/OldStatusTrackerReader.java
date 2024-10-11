@@ -15,29 +15,31 @@ import ca.bc.gov.hlth.pcdbi.batch.model.oldstatustracker.OldStatusTracker;
 import ca.bc.gov.hlth.pcdbi.service.ChefsService;
 
 public class OldStatusTrackerReader implements ItemReader<OldStatusTracker> {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(OldStatusTrackerReader.class);
-	
+
 	private static final String CURRENT_INDEX = "current.index";
 
-	//private ChefsService chefsService;
+	private ChefsService chefsService;
 
 	private List<OldStatusTracker> items;
 
 	private int currentIndex = 0;
 
+	private boolean statusTrackerLoaded = Boolean.FALSE;
+
 	public OldStatusTrackerReader(ChefsService chefsService) {
-		//this.chefsService = chefsService;
-		this.items = chefsService.getOldStatusTrackers().getBody();
-		logger.info("Read {} records", this.items.size());
+		this.chefsService = chefsService;
+
 	}
 
 	@Override
 	public OldStatusTracker read()
 			throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-		logger.info("read");
+		if (!statusTrackerLoaded) {
+			load();
+		}
 		if (currentIndex < items.size()) {
-			logger.info("read item {}", items.get(currentIndex) );
 			return items.get(currentIndex++);
 		}
 
@@ -57,5 +59,11 @@ public class OldStatusTrackerReader implements ItemReader<OldStatusTracker> {
 	}
 
 	public void close() throws ItemStreamException {
+	}
+
+	private void load() {
+		this.items = chefsService.getOldStatusTrackers().getBody();
+		logger.info("Read {} records", this.items.size());
+		this.statusTrackerLoaded = Boolean.TRUE;
 	}
 }
