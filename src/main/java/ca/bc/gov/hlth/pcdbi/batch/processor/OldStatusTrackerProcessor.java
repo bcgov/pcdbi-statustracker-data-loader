@@ -60,7 +60,7 @@ public class OldStatusTrackerProcessor implements ItemProcessor<OldStatusTracker
 		case "CHC":
 			processCHC(item, statusTracker);
 			break;
-		case "FPNCC":
+		case "FNPCC":
 			processFNPCC(item, statusTracker);
 			break;
 		case "NPPCC":
